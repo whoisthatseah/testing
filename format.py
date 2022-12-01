@@ -1,8 +1,9 @@
 import os.path
 from os import path
 import pandas as pd
+import re
 
-#Function to store all folders in a lis
+#Function to store all folders in a list
 def list_paths(path):
     directories = [x[1] for x in os.walk(path)]
     non_empty_dirs = [x for x in directories if x] # filter out empty lists
@@ -30,7 +31,7 @@ for row in data.index:
         continue
     else:
         for folder in foldersList:
-            if folder.split(' ',1)[0]==data['Number'][row]:
+            if folder.split(' ',1)[0]==data['Number'][row] or (folder.split(' ',1)[0]+' ' + folder.split(' ',2)[1])==data['Number'][row]:
                 currentDir=os.path.join(pathToDataset,folder)
                 for filename in os.listdir(currentDir):
                     if filename=="internal email.msg":
